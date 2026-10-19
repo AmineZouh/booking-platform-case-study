@@ -64,13 +64,13 @@ flowchart LR
             API["REST API<br/>Express + TypeScript<br/>40+ endpoints"]
             AUTH["Auth middleware<br/>JWT + RBAC"]
             WS["Socket.io server<br/>real-time slot updates"]
+            DB[("PostgreSQL")]
         end
-        RDS[("RDS<br/>PostgreSQL")]
         S3[("S3<br/>static assets / files")]
     end
 
     GMAIL["Gmail API<br/>email notifications"]
-    GOOGLE["Google Platform<br/>OAuth / Calendar"]
+    GOOGLE["Google Maps Platform<br/>maps"]
 
     C -->|HTTPS REST| API
     A -->|HTTPS REST| API
@@ -89,9 +89,9 @@ flowchart LR
 **Request flow for a booking:**
 
 1. The client selects a slot.
-3. The API checks availability and saves the booking in PostgreSQL inside a transaction, preventing double booking.
-4. The Socket.io server broadcasts the update, so every user sees the slot as taken instantly.
-5. A confirmation email is sent through the Gmail API.
+2. The API checks availability and saves the booking in PostgreSQL inside a transaction, preventing double booking.
+3. The Socket.io server broadcasts the update, so every user sees the slot as taken instantly.
+4. A confirmation email is sent through the Gmail API.
 
 ---
 
