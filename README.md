@@ -54,16 +54,21 @@ Built for professional on the domaine of law (notary, and lawyer)
 
 ```mermaid
 flowchart LR
-    subgraph Users["Users"]
-        C["Client app<br/>React + Tailwind"]
-        A["Admin dashboard<br/>React + Tailwind"]
+    subgraph Users["Users (browsers)"]
+        C["Client"]
+        A["Administrator"]
     end
 
     subgraph AWS["AWS"]
         subgraph Server["EC2 instance"]
-            API["REST API<br/>Express + TypeScript<br/>40+ endpoints"]
-            AUTH["Auth middleware<br/>JWT + RBAC"]
-            WS["Socket.io server<br/>real-time slot updates"]
+            CADDY["Caddy<br/>reverse proxy<br/>HTTPS (TLS) + domain routing"]
+            PORTAL["Client portal<br/>React + Tailwind"]
+            ADMIN["Admin panel<br/>React + Tailwind"]
+            subgraph Backend["Backend"]
+                API["REST API<br/>Express + TypeScript<br/>40+ endpoints"]
+                AUTH["Auth middleware<br/>JWT + RBAC"]
+                WS["Socket.io server<br/>real-time slot updates"]
+            end
             DB[("PostgreSQL")]
         end
         S3[("S3<br/>static assets / files")]
@@ -72,13 +77,15 @@ flowchart LR
     GMAIL["Gmail API<br/>email notifications"]
     GOOGLE["Google Maps Platform<br/>maps"]
 
-    C -->|HTTPS REST| API
-    A -->|HTTPS REST| API
-    C <-.->|WebSocket| WS
-    A <-.->|WebSocket| WS
+    C -->|HTTPS| CADDY
+    A -->|HTTPS| CADDY
+    CADDY -->|"example.com"| PORTAL
+    CADDY -->|"admin.example.com"| ADMIN
+    CADDY -->|"api.example.com<br/>REST"| API
+    CADDY <-.->|"api.example.com<br/>WebSocket"| WS
     API --> AUTH
     API --> WS
-    API -->|Prisma ORM| RDS
+    API -->|Prisma ORM| DB
     API --> S3
     API --> GMAIL
     API --> GOOGLE
