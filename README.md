@@ -9,9 +9,9 @@ Built for professional on the domaine of law (notary, and lawyer)
 **Live demo:https://probooking.duckdns.org <!-- TODO: link, or "available on request" -->
 **Video walkthrough (1 min 42s):https://youtu.be/ywbkszYtptM** <!-- TODO: Loom / YouTube link -->
 
-![Client booking screen](docs/screenshots/booking.png)
-![Client contact screen](docs/screenshots/contact.png)
-![Administrator Booking records management screen](docs/screenshots/admin_booking.png)
+![Client booking screen](docs/screenshots/booking.PNG)
+![Client contact screen](docs/screenshots/contact.PNG)
+![Administrator Booking records management screen](docs/screenshots/admin_booking.PNG)
 
 <!-- TODO: add 2-3 anonymized screenshots (client view, admin dashboard) -->
 
